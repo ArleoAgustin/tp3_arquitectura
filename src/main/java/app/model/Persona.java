@@ -1,0 +1,47 @@
+package app.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.Data;
+
+@Entity
+@Data
+public class Persona {
+
+    @Id
+    private Long dni;
+    @Column
+    private String nombre;
+    @Column
+    private String apellido;
+
+    public Persona(){}
+
+    public Persona(Long id, String nombre, String apellido) {
+        this.dni = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+    }
+
+    public Long getDni() {
+        return dni;
+    }
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+}
