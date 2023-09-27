@@ -1,12 +1,11 @@
 package app.percistence.repositories;
 
-import app.percistence.connection.EntityManager;
 import app.percistence.entities.Carrera;
 import app.percistence.entities.Estudiante;
 import app.percistence.entities.RelacionCarreraEstudiante;
 import app.percistence.repositories.Interface.InterfaceEstudianteRepository;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Repository;
 

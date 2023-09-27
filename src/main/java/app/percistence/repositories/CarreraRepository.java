@@ -1,13 +1,15 @@
 package app.percistence.repositories;
 
-import DTOs.CarreraReporteDTO;
-import DTOs.EstudianteReporteDTO;
-import DTOs.ObjectRelationDTO;
-import DTOs.ReporteDeCarrerasDTO;
-import percistence.entities.Carrera;
-import percistence.entities.Estudiante;
-import percistence.entities.RelacionCarreraEstudiante;
-import percistence.repositories.Interface.InterfaceCarreraRepository;
+
+
+import app.DTOs.CarreraReporteDTO;
+import app.DTOs.EstudianteReporteDTO;
+import app.DTOs.ObjectRelationDTO;
+import app.DTOs.ReporteDeCarrerasDTO;
+import app.percistence.entities.Carrera;
+import app.percistence.entities.Estudiante;
+import app.percistence.entities.RelacionCarreraEstudiante;
+import app.percistence.repositories.Interface.InterfaceCarreraRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -21,7 +23,7 @@ public class CarreraRepository implements InterfaceCarreraRepository {
     private static CarreraRepository instance;
 
     private CarreraRepository(){
-        this.entityManager = percistence.connection.EntityManager.getEntityManager();
+        this.entityManager = app.percistence.connection.EntityManager.getEntityManager();
     }
 
     public static CarreraRepository getInstance(){

@@ -1,7 +1,7 @@
 package app.percistence.connection;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class EntityManager {
 
@@ -10,7 +10,7 @@ public class EntityManager {
 
     static {
         emf = Persistence.createEntityManagerFactory("tp2");
-        em = emf.createEntityManager();
+        em = (javax.persistence.EntityManager) emf.createEntityManager();
     }
 
     private EntityManager() {}

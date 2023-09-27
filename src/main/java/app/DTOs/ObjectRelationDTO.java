@@ -1,8 +1,11 @@
 package app.DTOs;
 
-import percistence.entities.Carrera;
-import percistence.entities.Estudiante;
-import percistence.entities.RelacionCarreraEstudiante;
+
+import app.percistence.entities.Carrera;
+import app.percistence.entities.Estudiante;
+import app.percistence.entities.RelacionCarreraEstudiante;
+
+
 
 public class ObjectRelationDTO {
     private Carrera carrera;

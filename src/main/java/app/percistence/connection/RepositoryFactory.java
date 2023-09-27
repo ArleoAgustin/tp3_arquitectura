@@ -1,10 +1,10 @@
 package app.percistence.connection;
 
+import app.percistence.repositories.CarreraRepository;
+import app.percistence.repositories.EstudianteRepository;
 import org.springframework.context.annotation.Bean;
-import percistence.repositories.CarreraRepository;
-import percistence.repositories.EstudianteRepository;
 
-@Bean
+
 public class RepositoryFactory {
 
     public RepositoryFactory() {}

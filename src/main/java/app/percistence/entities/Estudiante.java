@@ -1,6 +1,11 @@
 package app.percistence.entities;
 
-import javax.persistence.*;
+import app.percistence.entities.Carrera;
+import app.percistence.entities.RelacionCarreraEstudiante;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 

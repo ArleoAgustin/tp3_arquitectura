@@ -1,5 +1,6 @@
 package app.DTOs;
 
+
 import static app.DTOs.CarreraReporteDTO.SEPARADOR;
 
 public class EstudianteReporteDTO {

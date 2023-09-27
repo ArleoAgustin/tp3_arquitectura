@@ -1,8 +1,10 @@
 package app.percistence.repositories.Interface;
 
-import DTOs.ReporteDeCarrerasDTO;
-import percistence.entities.Carrera;
-import percistence.entities.Estudiante;
+
+import app.DTOs.ReporteDeCarrerasDTO;
+import app.percistence.entities.Carrera;
+import app.percistence.entities.Estudiante;
+
 
 import java.util.List;
 

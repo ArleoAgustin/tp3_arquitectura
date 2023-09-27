@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface BaseService<E> {
 
+    E findById(Long id) throws Exception;
     List<E> findAll() throws Exception;
-    E findBydni(Long dni) throws Exception;
-    void insert(E entity) throws Exception;
-    void update(Long dni, E entity) throws Exception;
-    void delete(Long id) throws Exception;
+    boolean save(E entity) throws Exception;
+    boolean update(Long dni, E entity) throws Exception;
+    boolean delete(Long id) throws Exception;
 }
