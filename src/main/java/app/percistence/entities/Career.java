@@ -7,12 +7,12 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 
 @Entity
-public class Carrera {
+public class Career {
 
     @Id
     private int idCarrera;
     @OneToMany(mappedBy = "carrera")
-    private List<RelacionCarreraEstudiante> inscriptos;
+    private List<RelationCareerStudent> inscriptos;
 
     @Column(nullable = false, unique=true)
     private String nombre;
@@ -22,18 +22,18 @@ public class Carrera {
     @Column
     private int antiguedad;
 
-    public Carrera(){}
+    public Career(){}
 
-    public Carrera(String nombre) {
+    public Career(String nombre) {
         this.nombre = nombre;
     }
 
-    public Carrera(String nombre, int idCarrera) {
+    public Career(String nombre, int idCarrera) {
         this.nombre = nombre;
         this.idCarrera = idCarrera;
     }
 
-    public Carrera(String nombre, int idCarrera, int antiguedad) {
+    public Career(String nombre, int idCarrera, int antiguedad) {
         this.nombre = nombre;
         this.idCarrera = idCarrera;
         this.antiguedad = antiguedad;
@@ -51,16 +51,16 @@ public class Carrera {
         this.antiguedad = antiguedad;
     }
 
-    public List<RelacionCarreraEstudiante> getInscriptos() {
+    public List<RelationCareerStudent> getInscriptos() {
         return inscriptos;
     }
 
-    public void setInscriptos(List<RelacionCarreraEstudiante> inscriptos) {
+    public void setInscriptos(List<RelationCareerStudent> inscriptos) {
         this.inscriptos = inscriptos;
     }
 
-    public void matricularEstudiante(Estudiante e) {
-        RelacionCarreraEstudiante inscripto = new RelacionCarreraEstudiante(this, e);
+    public void matricularEstudiante(Student e) {
+        RelationCareerStudent inscripto = new RelationCareerStudent(this, e);
         this.inscriptos.add(inscripto);
     }
 
@@ -75,7 +75,7 @@ public class Carrera {
     private String getEstudiantesInscriptos(){
         if(this.inscriptos == null || this.inscriptos.size() == 0) return "no hay inscritos";
         String estudiantes = "";
-        for (RelacionCarreraEstudiante inscripto : inscriptos) {
+        for (RelationCareerStudent inscripto : inscriptos) {
             estudiantes += inscripto.getEstudiante().getApellido() + " " + inscripto.getEstudiante().getNombre() + ", ";
         }
         return estudiantes;

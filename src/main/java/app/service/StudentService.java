@@ -1,6 +1,6 @@
 package app.service;
 
-import app.percistence.entities.Estudiante;
+import app.percistence.entities.Student;
 import app.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("studentService")
-public class StudentService implements BaseService<Estudiante>{
+public class StudentService implements BaseService<Student>{
 
     @Autowired
     private StudentRepository studentRepository;
@@ -24,7 +24,7 @@ public class StudentService implements BaseService<Estudiante>{
 
     @Override
     @Transactional
-    public boolean save(Estudiante student) throws Exception {
+    public boolean save(Student student) throws Exception {
         try {
             studentRepository.save(student);
             return true;
@@ -34,10 +34,10 @@ public class StudentService implements BaseService<Estudiante>{
     }
 
     @Override
-    public boolean update(Long dni, Estudiante student) throws Exception {
+    public boolean update(Long dni, Student student) throws Exception {
         try {
-            Optional<Estudiante> entityOpcional = studentRepository.findById(dni);
-            Estudiante e = entityOpcional.get();
+            Optional<Student> entityOpcional = studentRepository.findById(dni);
+            Student e = entityOpcional.get();
             e = studentRepository.save(student);
             return true;
         }catch (Exception e){
@@ -61,9 +61,9 @@ public class StudentService implements BaseService<Estudiante>{
 
     @Override
     @Transactional
-    public Estudiante findById(Long dni) throws Exception {
+    public Student findById(Long dni) throws Exception {
         try{
-            Optional<Estudiante> student = studentRepository.findById(dni);
+            Optional<Student> student = studentRepository.findById(dni);
             return student.get();
         }catch (Exception e){
             throw new Exception(e.getMessage());

@@ -6,26 +6,26 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "RelacionCarreraEstudiante", uniqueConstraints = @UniqueConstraint(columnNames = { "dni", "idCarrera" }))
-public class RelacionCarreraEstudiante {
+public class RelationCareerStudent {
 
     @Id
     int id;
     @ManyToOne
     @JoinColumn(name = "dni")
-    private Estudiante estudiante;
+    private Student estudiante;
 
     @ManyToOne
     @JoinColumn(name = "idCarrera")
-    private Carrera carrera;
+    private Career carrera;
 
     private LocalDateTime fechaDeInscripcion;
 
     private LocalDateTime fechaDeEgreso;
 
 
-    public RelacionCarreraEstudiante(){}
+    public RelationCareerStudent(){}
 
-    public RelacionCarreraEstudiante(Carrera carrera, Estudiante estudiante) {
+    public RelationCareerStudent(Career carrera, Student estudiante) {
         this.estudiante = estudiante;
         this.carrera = carrera;
         this.fechaDeInscripcion = LocalDateTime.now();
@@ -35,7 +35,7 @@ public class RelacionCarreraEstudiante {
 
 
     //id,id_estudiante,id_carrera,inscripcion,graduacion,antiguedad
-    public RelacionCarreraEstudiante(int id, Estudiante estudiante, Carrera carrera, LocalDateTime fechaDeInscripcion, LocalDateTime fechaDeEgreso) {
+    public RelationCareerStudent(int id, Student estudiante, Career carrera, LocalDateTime fechaDeInscripcion, LocalDateTime fechaDeEgreso) {
         this.id = id;
         this.estudiante = estudiante;
         this.carrera = carrera;
@@ -47,11 +47,11 @@ public class RelacionCarreraEstudiante {
         return id;
     }
 
-    public Estudiante getEstudiante() {
+    public Student getEstudiante() {
         return estudiante;
     }
 
-    public Carrera getCarrera() {
+    public Career getCarrera() {
         return carrera;
     }
 

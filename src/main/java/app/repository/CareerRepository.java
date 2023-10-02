@@ -1,7 +1,9 @@
 package app.repository;
 
-import app.percistence.entities.Carrera;
+import app.percistence.entities.Career;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CareerRepository extends JpaRepository<Carrera, Long> {
+@Repository
+public interface CareerRepository extends JpaRepository<Career, Long> {
 }

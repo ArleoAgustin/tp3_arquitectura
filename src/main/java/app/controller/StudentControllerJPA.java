@@ -1,6 +1,7 @@
 package app.controller;
 
-import app.percistence.entities.Estudiante;
+
+import app.percistence.entities.Student;
 import app.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,9 @@ public class StudentControllerJPA {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?>getOneById(@PathVariable Long dni){
+
+    @GetMapping("getStudent/{dni}")
+    public ResponseEntity<?>getOne(@PathVariable Long dni){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(studentService.findById(dni));
         }catch (Exception e){
@@ -34,18 +36,18 @@ public class StudentControllerJPA {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody Estudiante student){
+    public ResponseEntity<?> save(@RequestBody Student entity){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(studentService.save(student));
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.save(entity));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id,@RequestBody Estudiante student){
+    public ResponseEntity<?> update(@PathVariable Long dni,@RequestBody Student entity){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(studentService.update(id,student));
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.update(dni,entity));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo editar, revise los campos e intente nuevamente.\"}");
         }

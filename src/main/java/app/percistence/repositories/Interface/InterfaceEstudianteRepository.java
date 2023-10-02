@@ -1,30 +1,30 @@
 package app.percistence.repositories.Interface;
 
-import app.percistence.entities.Carrera;
-import app.percistence.entities.Estudiante;
-import app.percistence.entities.RelacionCarreraEstudiante;
+import app.percistence.entities.Career;
+import app.percistence.entities.Student;
+import app.percistence.entities.RelationCareerStudent;
 
 import java.util.List;
 
 public interface InterfaceEstudianteRepository {
 
-    void addEstudiante(Estudiante p) throws Exception;
-    void updateEstudiante(Estudiante p, Estudiante pNew) throws Exception;
+    void addEstudiante(Student p) throws Exception;
+    void updateEstudiante(Student p, Student pNew) throws Exception;
     void deleteEstudiante(int id) throws Exception;
-    List<Estudiante> getEstudiantes() throws Exception;
+    List<Student> getEstudiantes() throws Exception;
 
-    void addEstudianteToCarrera(Estudiante e, Carrera c) throws Exception;
-    void addEstudianteToCarrera(RelacionCarreraEstudiante rce) throws Exception;
+    void addEstudianteToCarrera(Student e, Career c) throws Exception;
+    void addEstudianteToCarrera(RelationCareerStudent rce) throws Exception;
 
-    List<Estudiante> buscarEstudiantesPorCarrera(Carrera c) throws Exception;
+    List<Student> buscarEstudiantesPorCarrera(Career c) throws Exception;
 
-    List<Estudiante> getEstudiantesOrderByLastName() throws Exception;
+    List<Student> getEstudiantesOrderByLastName() throws Exception;
 
-    Estudiante getBy(int nroLibreta) throws Exception;
+    Student getBy(int nroLibreta) throws Exception;
 
-    List<Estudiante> getAllBy(String genero) throws Exception;
+    List<Student> getAllBy(String genero) throws Exception;
 
-    List<Estudiante> getAllBy(String carrera, String ciudad) throws Exception;
+    List<Student> getAllBy(String carrera, String ciudad) throws Exception;
 
 
 }

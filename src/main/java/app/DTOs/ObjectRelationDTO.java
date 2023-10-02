@@ -1,34 +1,34 @@
 package app.DTOs;
 
 
-import app.percistence.entities.Carrera;
-import app.percistence.entities.Estudiante;
-import app.percistence.entities.RelacionCarreraEstudiante;
+import app.percistence.entities.Career;
+import app.percistence.entities.Student;
+import app.percistence.entities.RelationCareerStudent;
 
 
 
 public class ObjectRelationDTO {
-    private Carrera carrera;
-    private Estudiante estudiante;
-    private RelacionCarreraEstudiante relacionCarreraEstudiante;
+    private Career carrera;
+    private Student estudiante;
+    private RelationCareerStudent relacionCarreraEstudiante;
     private int fechaInscripcion;
     private int fechaEgreso;
 
-    public ObjectRelationDTO(Carrera carrera, Estudiante estudiante, RelacionCarreraEstudiante relacionCarreraEstudiante) {
+    public ObjectRelationDTO(Career carrera, Student estudiante, RelationCareerStudent relacionCarreraEstudiante) {
         this.carrera = carrera;
         this.estudiante = estudiante;
         this.relacionCarreraEstudiante = relacionCarreraEstudiante;
     }
 
-    public Carrera getCarrera() {
+    public Career getCarrera() {
         return carrera;
     }
 
-    public Estudiante getEstudiante() {
+    public Student getEstudiante() {
         return estudiante;
     }
 
-    public RelacionCarreraEstudiante getRelacionCarreraEstudiante() {
+    public RelationCareerStudent getRelacionCarreraEstudiante() {
         return relacionCarreraEstudiante;
     }
 

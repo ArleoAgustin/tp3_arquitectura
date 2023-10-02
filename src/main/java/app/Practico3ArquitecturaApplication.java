@@ -5,12 +5,14 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOError;
 import java.io.IOException;
 
 @SpringBootApplication
+@EntityScan("app.percistence.entities")
 public class Practico3ArquitecturaApplication {
 
 	@Autowired

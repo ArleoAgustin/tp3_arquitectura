@@ -1,6 +1,6 @@
 package app.migration;
 
-import app.percistence.entities.Estudiante;
+import app.percistence.entities.Student;
 import app.repository.StudentRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 @Component
 public class ReaderCSV {
@@ -30,7 +29,7 @@ public class ReaderCSV {
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileEstudiantes));
 
         for(CSVRecord row: file) {
-            studentRepository.save(new Estudiante(Integer.parseInt(row.get("DNI")), row.get("nombre"), row.get("apellido"), Integer.parseInt(row.get("edad")), row.get("genero"), row.get("ciudad"), Integer.parseInt(row.get("LU"))));
+            studentRepository.save(new Student(Integer.parseInt(row.get("DNI")), row.get("nombre"), row.get("apellido"), Integer.parseInt(row.get("edad")), row.get("genero"), row.get("ciudad"), Integer.parseInt(row.get("LU"))));
         }
     }
 /*

@@ -1,7 +1,5 @@
 package app.percistence.entities;
 
-import app.percistence.entities.Carrera;
-import app.percistence.entities.RelacionCarreraEstudiante;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Estudiante {
+public class Student {
 
     @Id
     private int dni;
@@ -34,11 +32,11 @@ public class Estudiante {
     private int nroLibreta;
 
     @OneToMany(mappedBy = "estudiante")
-    private List<RelacionCarreraEstudiante> carrerasInscriptas;
+    private List<RelationCareerStudent> carrerasInscriptas;
 
-    public Estudiante() {}
+    public Student() {}
 
-    public Estudiante(int dni, String nombre, String apellido, int edad, String genero, String ciudad, int nroLibreta) {
+    public Student(int dni, String nombre, String apellido, int edad, String genero, String ciudad, int nroLibreta) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -94,27 +92,27 @@ public class Estudiante {
         this.nroLibreta = nroLibreta;
     }
 
-    public List<RelacionCarreraEstudiante> getCarrerasInscriptas() {
+    public List<RelationCareerStudent> getCarrerasInscriptas() {
         return carrerasInscriptas;
     }
 
-    public void addCarrera(Carrera c) {
-        RelacionCarreraEstudiante carreraInscripta = new RelacionCarreraEstudiante(c, this);
+    public void addCarrera(Career c) {
+        RelationCareerStudent carreraInscripta = new RelationCareerStudent(c, this);
         this.carrerasInscriptas.add(carreraInscripta);
     }
 
-    public void addCarrera(RelacionCarreraEstudiante carreraInscripta) {
+    public void addCarrera(RelationCareerStudent carreraInscripta) {
         this.carrerasInscriptas.add(carreraInscripta);
     }
 
-    public void setCarrerasInscriptas(List<RelacionCarreraEstudiante> carrerasInscriptas) {
+    public void setCarrerasInscriptas(List<RelationCareerStudent> carrerasInscriptas) {
         this.carrerasInscriptas = carrerasInscriptas;
     }
 
     private String obtenerListaCarreras() {
         String result = "";
         if(this.carrerasInscriptas != null) {
-            for (RelacionCarreraEstudiante carrera : this.carrerasInscriptas) {
+            for (RelationCareerStudent carrera : this.carrerasInscriptas) {
                 result += carrera.getCarrera().getNombre() + ", ";
             }
             return result;
