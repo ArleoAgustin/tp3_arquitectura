@@ -4,22 +4,26 @@ import app.percistence.entities.Student;
 import app.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 import java.util.Optional;
 
-@Service("studentService")
-public class StudentService implements BaseService<Student>{
+@org.springframework.stereotype.Service("studentService")
+public class StudentService implements Service<Student> {
 
     @Autowired
     private StudentRepository studentRepository;
 
     @Override
+    public Student findBy(Long dni){
+        return studentRepository.findById(dni).get();
+    }
+
+    @Override
     @Transactional
     public List findAll() throws Exception {
-        return studentRepository.findAll();
+        return studentRepository.findAllByOrderByApellidoAsc();
     }
 
     @Override
@@ -59,14 +63,24 @@ public class StudentService implements BaseService<Student>{
         }
     }
 
-    @Override
     @Transactional
-    public Student findById(Long dni) throws Exception {
+    public Student findByLibreta(int nroLibreta) throws Exception {
         try{
-            Optional<Student> student = studentRepository.findById(dni);
+            Optional<Student> student = Optional.ofNullable(studentRepository.findBynroLibreta(nroLibreta));
             return student.get();
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
+
+    @Transactional
+    public List<Student> findByGenre(String genero) throws Exception {
+        try {
+            return studentRepository.findByGenre(genero);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+
 }

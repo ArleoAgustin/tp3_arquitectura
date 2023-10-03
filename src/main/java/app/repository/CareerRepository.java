@@ -10,22 +10,4 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CareerRepository extends JpaRepository<Career, Long> {
-
-/*
-    @Query("INSERT INTO RelationCareerStudent ()")
-    void matricularACarrera(Long dni);
-*/
-
-
-    /*
-    *     @Override
-        public void matricularACarrera(Estudiante e, Carrera c) throws Exception {
-        RelacionCarreraEstudiante rce = new RelacionCarreraEstudiante(c, e);
-        entityManager.getTransaction().begin();
-        entityManager.persist(rce);
-        entityManager.getTransaction().commit();
-    }
-    *
-    * */
-}
+public interface CareerRepository extends JpaRepository<Career, Long> {}

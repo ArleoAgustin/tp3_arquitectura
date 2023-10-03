@@ -2,8 +2,6 @@ package app.migration;
 
 import app.percistence.entities.Career;
 import app.percistence.entities.Student;
-import app.percistence.repositories.CarreraRepository;
-import app.percistence.repositories.EstudianteRepository;
 import app.repository.CareerRepository;
 import app.repository.StudentRepository;
 import org.apache.commons.csv.CSVFormat;
@@ -52,9 +50,9 @@ public class ReaderCSV {
 /*
     public void loadRelation() throws Exception {
         String fileEstudianteCarrera = "src/main/app/java/migration/CSVs/estudianteCarrera.csv";
+
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileEstudianteCarrera));
-        EstudianteRepository estudianteRepository = repositoryFactory.getInstanceEstudianteRepository();
-        CarreraRepository carreraRepository = repositoryFactory.getInstanceCarreraRepository();
+
 
         for(CSVRecord row: file) {
             Carrera c = carreraRepository.getCarrera(Integer.parseInt(row.get("id_carrera")));

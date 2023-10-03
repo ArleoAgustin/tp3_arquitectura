@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 public class RelationCareerStudent {
 
     @Id
-    int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
     @ManyToOne
     @JoinColumn(name = "dni")
     private Student estudiante;
@@ -35,15 +36,14 @@ public class RelationCareerStudent {
 
 
     //id,id_estudiante,id_carrera,inscripcion,graduacion,antiguedad
-    public RelationCareerStudent(int id, Student estudiante, Career carrera, LocalDateTime fechaDeInscripcion, LocalDateTime fechaDeEgreso) {
-        this.id = id;
+    public RelationCareerStudent(Student estudiante, Career carrera, LocalDateTime fechaDeInscripcion, LocalDateTime fechaDeEgreso) {
         this.estudiante = estudiante;
         this.carrera = carrera;
         this.fechaDeInscripcion = fechaDeInscripcion;
         this.fechaDeEgreso = fechaDeEgreso;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

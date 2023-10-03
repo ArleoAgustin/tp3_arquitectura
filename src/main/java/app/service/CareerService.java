@@ -2,21 +2,48 @@ package app.service;
 
 
 import app.percistence.entities.Career;
+import app.percistence.entities.RelationCareerStudent;
 import app.percistence.entities.Student;
 import app.repository.CareerRepository;
-import app.repository.StudentRepository;
+import app.repository.RelationCareerStudentRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Service("careerService")
-public class CareerService implements BaseService<Career> {
+@org.springframework.stereotype.Service("careerService")
+
+public class CareerService implements Service<Career> {
 
     @Autowired
     private CareerRepository careerRepository;
+    private RelationCareerStudentRepository relationRepository;
+
+    @Autowired
+    public CareerService(RelationCareerStudentRepository relationRepository) {
+        this.relationRepository = relationRepository;
+    }
+
+    @Transactional
+    public boolean matricularEstudianteEnCarrera(Career carrera, Student estudiante) throws Exception {
+        try {
+            RelationCareerStudent relacion = new RelationCareerStudent(carrera, estudiante);
+            relacion.setFechaDeInscripcion(LocalDateTime.now());
+            relationRepository.save(relacion);
+            return true;
+        }catch (Exception e){
+        throw new Exception(e.getMessage());
+    }
+    }
+
+    @Override
+    public Career findBy(Long id_career) {
+        return  careerRepository.findById(id_career).get();
+    }
+
+
 
     @Override
     @Transactional
@@ -61,15 +88,5 @@ public class CareerService implements BaseService<Career> {
         }
     }
 
-    @Override
-    @Transactional
-    public Career findById(Long id) throws Exception {
-        try{
-            Optional<Career> career = careerRepository.findById(id);
-            return career.get();
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-    }
 
 }

@@ -24,16 +24,25 @@ public class StudentControllerJPA {
         }
     }
 
-
-    @GetMapping("/{dni}")
-    public ResponseEntity<?>getOne(@PathVariable Long dni){
+    @GetMapping("/byGenre/{genero}")
+    public ResponseEntity<?> getAllByGenre(@PathVariable String genero){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(studentService.findById(dni));
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.findByGenre(genero));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
+    }
+
+    @GetMapping("/{nroLibreta}")
+    public ResponseEntity<?>getByNroLibreta(@PathVariable int nroLibreta){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.findByLibreta(nroLibreta));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encuentra el objeto buscado" +
                     ".\"}");
         }
     }
+
 
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody Student entity){
