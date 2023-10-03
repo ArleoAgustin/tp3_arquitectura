@@ -25,7 +25,7 @@ public class StudentControllerJPA {
     }
 
 
-    @GetMapping("getStudent/{dni}")
+    @GetMapping("/{dni}")
     public ResponseEntity<?>getOne(@PathVariable Long dni){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(studentService.findById(dni));
@@ -44,7 +44,7 @@ public class StudentControllerJPA {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{dni}")
     public ResponseEntity<?> update(@PathVariable Long dni,@RequestBody Student entity){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(studentService.update(dni,entity));
@@ -53,7 +53,7 @@ public class StudentControllerJPA {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{dni}")
     public ResponseEntity<?> delete(@PathVariable Long dni){
         try{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(studentService.delete(dni));

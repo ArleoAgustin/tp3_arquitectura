@@ -10,7 +10,7 @@ import java.util.List;
 public class Career {
 
     @Id
-    private int idCarrera;
+    private Long idCarrera;
     @OneToMany(mappedBy = "carrera")
     private List<RelationCareerStudent> inscriptos;
 
@@ -28,18 +28,18 @@ public class Career {
         this.nombre = nombre;
     }
 
-    public Career(String nombre, int idCarrera) {
+    public Career(String nombre, Long idCarrera) {
         this.nombre = nombre;
         this.idCarrera = idCarrera;
     }
 
-    public Career(String nombre, int idCarrera, int antiguedad) {
+    public Career(String nombre, Long idCarrera, int antiguedad) {
         this.nombre = nombre;
         this.idCarrera = idCarrera;
         this.antiguedad = antiguedad;
     }
 
-    public int getIdCarrera() {
+    public Long getIdCarrera() {
         return idCarrera;
     }
 

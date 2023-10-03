@@ -1,6 +1,10 @@
 package app.migration;
 
+import app.percistence.entities.Career;
 import app.percistence.entities.Student;
+import app.percistence.repositories.CarreraRepository;
+import app.percistence.repositories.EstudianteRepository;
+import app.repository.CareerRepository;
 import app.repository.StudentRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -11,16 +15,20 @@ import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Component
 public class ReaderCSV {
 
     @Autowired
     private final StudentRepository studentRepository;
+    @Autowired
+    private final CareerRepository careerRepository;
 
     @Autowired
-    public ReaderCSV(StudentRepository studentRepository){
+    public ReaderCSV(StudentRepository studentRepository, CareerRepository careerRepository){
         this.studentRepository = studentRepository;
+        this.careerRepository = careerRepository;
     }
 
     public void loadEstudiantes() throws IOException {
@@ -32,21 +40,21 @@ public class ReaderCSV {
             studentRepository.save(new Student(Integer.parseInt(row.get("DNI")), row.get("nombre"), row.get("apellido"), Integer.parseInt(row.get("edad")), row.get("genero"), row.get("ciudad"), Integer.parseInt(row.get("LU"))));
         }
     }
-/*
-    public void loadCarreras() throws Exception {
+
+    public void loadCarreras() throws IOException {
         String fileCarrera = "src/main/java/app/migration/CSVs/carreras.csv";
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileCarrera));
 
         for(CSVRecord row: file) {
-            carreraRepository.addCarrera(new Carrera(row.get("carrera"),Integer.parseInt(row.get("id_carrera"))));
+            careerRepository.save(new Career(row.get("carrera"), Long.parseLong(row.get("id_carrera"))));
         }
     }
-
+/*
     public void loadRelation() throws Exception {
         String fileEstudianteCarrera = "src/main/app/java/migration/CSVs/estudianteCarrera.csv";
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileEstudianteCarrera));
-        EstudianteRepository  estudianteRepository = repositoryFactory.getInstanceEstudianteRepository();
-        CarreraRepository  carreraRepository = repositoryFactory.getInstanceCarreraRepository();
+        EstudianteRepository estudianteRepository = repositoryFactory.getInstanceEstudianteRepository();
+        CarreraRepository carreraRepository = repositoryFactory.getInstanceCarreraRepository();
 
         for(CSVRecord row: file) {
             Carrera c = carreraRepository.getCarrera(Integer.parseInt(row.get("id_carrera")));
