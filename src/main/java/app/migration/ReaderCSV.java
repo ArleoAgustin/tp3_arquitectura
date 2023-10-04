@@ -1,6 +1,7 @@
 package app.migration;
 
 import app.percistence.entities.Career;
+import app.percistence.entities.RelationCareerStudent;
 import app.percistence.entities.Student;
 import app.repository.CareerRepository;
 import app.repository.StudentRepository;
@@ -62,7 +63,10 @@ public class ReaderCSV {
         for(CSVRecord row: file) {
             Career c = careerService.findBy(Long.parseLong(row.get("id_carrera")));
             Student e = studentService.findBy(Long.parseLong(row.get("id_estudiante")));
-            careerService.matricularEstudianteEnCarrera(c,e);
+            LocalDateTime inscription = LocalDateTime.of(Integer.parseInt(row.get("inscripcion")), 1, 1, 1, 1);
+            LocalDateTime graduation = LocalDateTime.of(Integer.parseInt(row.get("graduacion")), 1, 1, 1, 1);
+            RelationCareerStudent relation = new RelationCareerStudent(e, c, inscription, graduation);
+            careerService.matricularEstudianteEnCarrera(relation);
         }
     }
 }

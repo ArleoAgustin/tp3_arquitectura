@@ -22,6 +22,6 @@ public class Practico3ArquitecturaApplication {
 	public void init() throws IOException {
 		loadDates.loadEstudiantes();
 		loadDates.loadCarreras();
-		loadDates.loadRelation();//TODO: cargar la relacion con fechas de egresos
+		loadDates.loadRelation();
 	}
 }

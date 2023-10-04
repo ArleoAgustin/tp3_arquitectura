@@ -34,12 +34,15 @@ public class CareerService implements Service<Career> {
         if (carrera == null || estudiante == null) {
             throw new IllegalArgumentException("Carrera y estudiante no pueden ser nulos.");
         }
-
         RelationCareerStudent relation = new RelationCareerStudent(carrera, estudiante);
         relationRepository.save(relation);
         return true;
     }
 
+    public boolean matricularEstudianteEnCarrera(RelationCareerStudent rcs) {
+        relationRepository.save(rcs);
+        return true;
+    }
 
     @Override
     public Career findBy(Long id_career) {
@@ -51,7 +54,6 @@ public class CareerService implements Service<Career> {
             throw new EntityNotFoundException("Carrera no encontrada con id: " + id_career);
         }
     }
-
 
     @Override
     @Transactional
@@ -70,7 +72,6 @@ public class CareerService implements Service<Career> {
             throw new Exception(e.getMessage());
         }
     }
-
 
     @Override
     @Transactional
@@ -105,7 +106,6 @@ public class CareerService implements Service<Career> {
             throw new Exception("Error al eliminar la carrera: " + e.getMessage());
         }
     }
-
 
     @Transactional
     public Optional findWithIscriptosOrderByCant() throws Exception {
@@ -145,8 +145,6 @@ public class CareerService implements Service<Career> {
 
 
 */
-
-
 
 
     private List<CareerDTO> converToCareerDTO(List<Career> careers){
