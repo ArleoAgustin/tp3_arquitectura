@@ -1,5 +1,4 @@
 package app;
-
 import app.migration.ReaderCSV;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,9 @@ public class Practico3ArquitecturaApplication {
 	}
 
 	@PostConstruct
-	public void init() throws IOException{
+	public void init() throws IOException {
 		loadDates.loadEstudiantes();
 		loadDates.loadCarreras();
+		//loadDates.loadRelation();
 	}
 }

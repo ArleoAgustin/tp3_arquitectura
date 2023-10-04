@@ -1,5 +1,7 @@
 package app.percistence.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -7,6 +9,7 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idCarrera")
 public class Career {
 
     @Id
@@ -71,6 +74,8 @@ public class Career {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+
 
     private String getEstudiantesInscriptos(){
         if(this.inscriptos == null || this.inscriptos.size() == 0) return "no hay inscritos";

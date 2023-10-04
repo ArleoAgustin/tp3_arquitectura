@@ -1,17 +1,19 @@
 package app.service;
 
 
+import app.DTOs.*;
 import app.percistence.entities.Career;
 import app.percistence.entities.RelationCareerStudent;
 import app.percistence.entities.Student;
 import app.repository.CareerRepository;
 import app.repository.RelationCareerStudentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @org.springframework.stereotype.Service("careerService")
 
@@ -26,29 +28,37 @@ public class CareerService implements Service<Career> {
         this.relationRepository = relationRepository;
     }
 
-    @Transactional
-    public boolean matricularEstudianteEnCarrera(Career carrera, Student estudiante) throws Exception {
-        try {
-            RelationCareerStudent relacion = new RelationCareerStudent(carrera, estudiante);
-            relacion.setFechaDeInscripcion(LocalDateTime.now());
-            relationRepository.save(relacion);
-            return true;
-        }catch (Exception e){
-        throw new Exception(e.getMessage());
+    public CareerService() {}
+
+    public boolean matricularEstudianteEnCarrera(Career carrera, Student estudiante) {
+        if (carrera == null || estudiante == null) {
+            throw new IllegalArgumentException("Carrera y estudiante no pueden ser nulos.");
+        }
+
+        RelationCareerStudent relacion = new RelationCareerStudent(carrera, estudiante);
+        relacion.setFechaDeInscripcion(LocalDateTime.now());
+        relationRepository.save(relacion);
+        return true;
     }
-    }
+
 
     @Override
     public Career findBy(Long id_career) {
-        return  careerRepository.findById(id_career).get();
-    }
 
+        Optional<Career> careerOptional = careerRepository.findById(id_career);
+        if (careerOptional.isPresent()) {
+            return careerOptional.get();
+        } else {
+            throw new EntityNotFoundException("Carrera no encontrada con id: " + id_career);
+        }
+    }
 
 
     @Override
     @Transactional
-    public List findAll() throws Exception {
-        return careerRepository.findAll();
+    public Optional<List<CareerDTO>> findAll() {
+        List<CareerDTO> careers = this.converToCareerDTO(careerRepository.findAll());
+        return Optional.ofNullable(careers);
     }
 
     @Override
@@ -62,31 +72,92 @@ public class CareerService implements Service<Career> {
         }
     }
 
+
     @Override
+    @Transactional
     public boolean update(Long id, Career career) throws Exception {
         try {
-            Optional<Career> entityOpcional = careerRepository.findById(id);
-            Career e = entityOpcional.get();
-            e = careerRepository.save(career);
-            return true;
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
+            Optional<Career> entityOptional = careerRepository.findById(id);
+            if (entityOptional.isPresent()) {
+                Career existingCareer = entityOptional.get();
+                existingCareer.setNombre(career.getNombre());
+                existingCareer.setAntiguedad(career.getAntiguedad());
+                careerRepository.save(existingCareer);
+                return true;
+            } else {
+                throw new ChangeSetPersister.NotFoundException();
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al actualizar la carrera: " + e.getMessage());
         }
     }
 
     @Override
+    @Transactional
     public boolean delete(Long id) throws Exception {
-        try{
-            if(careerRepository.existsById(id)){
+        try {
+            if (careerRepository.existsById(id)) {
                 careerRepository.deleteById(id);
                 return true;
-            }else{
-                throw new Exception();
+            } else {
+                throw new ChangeSetPersister.NotFoundException();
             }
+        } catch (Exception e) {
+            throw new Exception("Error al eliminar la carrera: " + e.getMessage());
+        }
+    }
+
+
+    @Transactional
+    public Optional findWithIscriptosOrderByCant() throws Exception {
+        try {
+            List<CareerDTO> careerDTOS = this.converToCareerDTO(careerRepository.getWithIscriptosOrderByCant());
+            return Optional.ofNullable(careerDTOS);
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
 
+/*
+//////reporte dto
+
+    public List getReport(){
+
+        List<Object[]> result = careerRepository.getReport();
+        List<ObjectRelationDTO> data = new ArrayList<>();
+        for (Object[] res: result){
+            data.add(new ObjectRelationDTO((Career)res[0],(Student)res[2],(RelationCareerStudent)res[1]));
+        }
+        TreeMap<String, CarreraReporteDTO> careers = new TreeMap<>();
+        for (ObjectRelationDTO objectRelationDTO: data){
+            String careerName = objectRelationDTO.getCarrera().getNombre();
+            if (!careers.containsKey(objectRelationDTO.getCarrera().getNombre())){
+                careers.put(careerName, new CarreraReporteDTO((careerName)));
+            }
+            careers.get(careerName).addIngresante(new EstudianteReporteDTO(objectRelationDTO.getEstudiante().getDni(),objectRelationDTO.getEstudiante().getNombre(), objectRelationDTO.getEstudiante().getApellido()) , objectRelationDTO.getRelacionCarreraEstudiante().getFechaDeInscripcion().getYear());
+            if(objectRelationDTO.getRelacionCarreraEstudiante().getFechaDeEgreso() != null) {
+                careers.get(careerName).addEgresado(new EstudianteReporteDTO(objectRelationDTO.getEstudiante().getDni(), objectRelationDTO.getEstudiante().getNombre(), objectRelationDTO.getEstudiante().getApellido()), objectRelationDTO.getRelacionCarreraEstudiante().getFechaDeEgreso().getYear());
+            }
+        }
+        return new ArrayList<>(careers.values());
+    }
+
+
+
+
+*/
+
+
+
+
+    private List<CareerDTO> converToCareerDTO(List<Career> careers){
+
+        List<CareerDTO> result = new ArrayList<>();
+        careers.forEach(career -> {
+            CareerDTO careerDTO = new CareerDTO(career);
+            result.add(careerDTO);
+        });
+        return result;
+    }
 
 }

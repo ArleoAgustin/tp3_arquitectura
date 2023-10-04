@@ -1,12 +1,16 @@
 package app.controller;
 
 
+import app.DTOs.StudentDTO;
 import app.percistence.entities.Student;
 import app.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/students")
@@ -28,6 +32,15 @@ public class StudentControllerJPA {
     public ResponseEntity<?> getAllByGenre(@PathVariable String genero){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(studentService.findByGenre(genero));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
+    }
+
+    @GetMapping("/{career}/{city}")
+    public ResponseEntity<?> getAllBy(@PathVariable String career, @PathVariable String city){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.getAllBy(career,city));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
         }

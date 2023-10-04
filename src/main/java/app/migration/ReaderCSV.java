@@ -4,6 +4,8 @@ import app.percistence.entities.Career;
 import app.percistence.entities.Student;
 import app.repository.CareerRepository;
 import app.repository.StudentRepository;
+import app.service.CareerService;
+import app.service.StudentService;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -47,22 +49,22 @@ public class ReaderCSV {
             careerRepository.save(new Career(row.get("carrera"), Long.parseLong(row.get("id_carrera"))));
         }
     }
-/*
-    public void loadRelation() throws Exception {
-        String fileEstudianteCarrera = "src/main/app/java/migration/CSVs/estudianteCarrera.csv";
+
+    public void loadRelation() throws IOException {
+
+        String fileEstudianteCarrera = "src/main/java/app/migration/CSVs/estudianteCarrera.csv";
 
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileEstudianteCarrera));
 
+        CareerService careerService = new CareerService();
+        StudentService studentService = new StudentService();
 
         for(CSVRecord row: file) {
-            Carrera c = carreraRepository.getCarrera(Integer.parseInt(row.get("id_carrera")));
-            percistence.entities.Estudiante e = estudianteRepository.obtenerPorId(Integer.parseInt(row.get("id_estudiante")));
-            RelacionCarreraEstudiante rce = new RelacionCarreraEstudiante(Integer.parseInt(row.get("id")),
-                    e, c, LocalDateTime.of(Integer.parseInt(row.get("inscripcion")),
-                    1, 1, 1, 1),
-                    LocalDateTime.of(Integer.parseInt(row.get("graduacion")),
-                            1, 1, 1, 1));
-            estudianteRepository.addEstudianteToCarrera(rce);
+
+            Career c = careerService.findBy(Long.parseLong(row.get("id_carrera")));
+            Student e = studentService.findBy(Long.parseLong(row.get("id_estudiante")));
+
+            careerService.matricularEstudianteEnCarrera(c,e);
         }
-    }*/
+    }
 }

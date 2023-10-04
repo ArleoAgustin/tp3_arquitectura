@@ -1,5 +1,7 @@
 package app.percistence.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "dni")
 public class Student {
 
     @Id
@@ -78,6 +81,10 @@ public class Student {
 
     public String getCiudad() {
         return ciudad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 
     public void setCiudad(String ciudad) {

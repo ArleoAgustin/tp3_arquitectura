@@ -28,9 +28,37 @@ public class CareerControllerJPA {
         }
     }
 
-    /*  //carga las relaciones, pero se rompe cuando trae todas las carreras / alumnos
 
-    @PostMapping("/enrollStudent/{careerId}/{studentId}")
+    @GetMapping("{id}")
+    public ResponseEntity<?> getAll(@PathVariable Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(careerService.findBy(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
+    }
+
+/*
+    @GetMapping("/getReport")
+    public ResponseEntity<?> getReport(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(careerService.getReport());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
+    }
+*/
+
+    @GetMapping("/OrderByCantStudentRegistered")
+    public ResponseEntity<?> getWithIscriptosOrderByCant(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(careerService.findWithIscriptosOrderByCant());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
+    }
+
+    @PostMapping("/{careerId}/{studentId}")
     public ResponseEntity<?> insertStudentInCareer(@PathVariable Long careerId, @PathVariable Long studentId) {
 
         Career career = careerService.findBy(careerId);
@@ -43,7 +71,7 @@ public class CareerControllerJPA {
         }
     }
 
-*/
+
 
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody Career entity){

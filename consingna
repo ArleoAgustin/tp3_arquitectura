@@ -10,7 +10,7 @@
 
 listo    a) dar de alta un estudiante
 
-    b) matricular un estudiante en una carrera
+listo ->    b) matricular un estudiante en una carrera
 
 listo ->   c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
 
@@ -18,10 +18,42 @@ listo ->   d) recuperar un estudiante, en base a su número de libreta universit
 
 listo ->   e) recuperar todos los estudiantes, en base a su género.
 
-    f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
+listo ->    f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
 
-    g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
+listo ->    g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
 
     h)  generar un reporte de las carreras, que para cada carrera incluya información de los
         inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y
         presentar los años de manera cronológica.
+
+
+endpoints para carrera:
+
+    GET -> localHost:8080/careers                                   (trae todas las carreras)
+
+    GET -> localHost:8080/careers/OrderByCantStudentRegistered      (trae todas las carreras ordenadas por canntidad de inscriptos)
+
+    POST -> localHost:8080/careers/"idCarrera"/"idEstudiante"       (matricula un estudiante en la carrera)
+
+    POST -> localHost:8080/careers                                  (agrega una carrera)
+
+    PUT -> localHost:8080/careers/id                                (update a carrera)
+
+    DELETE -> localHost:8080/careers/id                             (borra una carrera)
+
+
+endpoints para estudiante:
+
+    GET -> localHost:8080/students                   (trae todos los estudiantes ordenados por apellido)
+
+    GET -> localHost:8080/students/byGenre/"genero"  (trae todos los estudiantes de un genero)
+
+    GET -> localHost:8080/students/"carrera"/ciudad  (trae los estudiantes que cursan la carrera y son de esa ciudad)
+
+    GET -> localHost:8080/students/nroLibreta        (trae un estudiante por su libreta)
+
+    POST -> localHost:8080/students                  (inserta un estudiante)
+
+    PUT -> localHost:8080/students/dni               (actualiza un alumno)
+
+    DELETE -> localHost:8080/students/dni            (elimina un alumno)
