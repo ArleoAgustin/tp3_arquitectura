@@ -1,8 +1,8 @@
-package app.migration;
+package app.utils;
 
-import app.percistence.entities.Career;
-import app.percistence.entities.RelationCareerStudent;
-import app.percistence.entities.Student;
+import app.model.Career;
+import app.model.RelationCareerStudent;
+import app.model.Student;
 import app.repository.CareerRepository;
 import app.repository.RelationCareerStudentRepository;
 import app.repository.StudentRepository;
@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Component
-public class ReaderCSV {
+public class LoadData {
 
     @Autowired
     private final StudentRepository studentRepository;
@@ -34,11 +34,11 @@ public class ReaderCSV {
     private final StudentService studentService;
 
     @Autowired
-    public ReaderCSV(StudentRepository studentRepository,
-                     CareerRepository careerRepository,
-                     CareerService careerService,
-                     StudentService studentService,
-                     RelationCareerStudentRepository relationCareerStudentRepository)
+    public LoadData(StudentRepository studentRepository,
+                    CareerRepository careerRepository,
+                    CareerService careerService,
+                    StudentService studentService,
+                    RelationCareerStudentRepository relationCareerStudentRepository)
     {
         this.studentRepository = studentRepository;
         this.careerRepository = careerRepository;
@@ -48,7 +48,7 @@ public class ReaderCSV {
     }
 
     public void loadEstudiantes() throws IOException {
-        String fileEstudiantes = "src/main/java/app/migration/CSVs/estudiantes.csv";
+        String fileEstudiantes = "src/main/java/app/utils/CSVs/estudiantes.csv";
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileEstudiantes));
 
         for(CSVRecord row: file) {
@@ -57,7 +57,7 @@ public class ReaderCSV {
     }
 
     public void loadCarreras() throws IOException {
-        String fileCarrera = "src/main/java/app/migration/CSVs/carreras.csv";
+        String fileCarrera = "src/main/java/app/utils/CSVs/carreras.csv";
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileCarrera));
 
         for(CSVRecord row: file) {
@@ -66,7 +66,7 @@ public class ReaderCSV {
     }
 
     public void loadRelation() throws IOException {
-        String fileEstudianteCarrera = "src/main/java/app/migration/CSVs/estudianteCarrera.csv";
+        String fileEstudianteCarrera = "src/main/java/app/utils/CSVs/estudianteCarrera.csv";
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileEstudianteCarrera));
 
         for(CSVRecord row: file) {

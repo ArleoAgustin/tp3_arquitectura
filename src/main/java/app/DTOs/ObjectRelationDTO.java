@@ -1,9 +1,9 @@
 package app.DTOs;
 
 
-import app.percistence.entities.Career;
-import app.percistence.entities.Student;
-import app.percistence.entities.RelationCareerStudent;
+import app.model.Career;
+import app.model.Student;
+import app.model.RelationCareerStudent;
 
 
 

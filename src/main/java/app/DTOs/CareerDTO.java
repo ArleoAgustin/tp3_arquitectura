@@ -1,6 +1,6 @@
 package app.DTOs;
 
-import app.percistence.entities.Career;
+import app.model.Career;
 
 import java.util.ArrayList;
 import java.util.List;

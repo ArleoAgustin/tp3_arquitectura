@@ -15,6 +15,9 @@ public class ReporteDeCarrerasDTO {
         this.carreras.addAll(carreras);
     }
 
+    public List<CarreraReporteDTO> getCarreras() {
+        return carreras;
+    }
 
     @Override
     public String toString() {

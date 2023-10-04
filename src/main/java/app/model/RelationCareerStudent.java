@@ -1,4 +1,4 @@
-package app.percistence.entities;
+package app.model;
 
 import jakarta.persistence.*;
 
@@ -33,9 +33,6 @@ public class RelationCareerStudent {
         this.fechaDeEgreso = null;
     }
 
-
-
-    //id,id_estudiante,id_carrera,inscripcion,graduacion,antiguedad
     public RelationCareerStudent(Student estudiante, Career carrera, LocalDateTime fechaDeInscripcion, LocalDateTime fechaDeEgreso) {
         this.estudiante = estudiante;
         this.carrera = carrera;
@@ -70,7 +67,6 @@ public class RelationCareerStudent {
     public void setFechaDeEgreso() {
         this.fechaDeEgreso = LocalDateTime.now();
     }
-
 
     @Override
     public String toString() {

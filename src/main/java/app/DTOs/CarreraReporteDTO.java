@@ -1,4 +1,5 @@
 package app.DTOs;
+import java.util.Collection;
 import java.util.TreeMap;
 
 public class CarreraReporteDTO {
@@ -15,6 +16,10 @@ public class CarreraReporteDTO {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public Collection<EstudiantesPorAnioDTO> getAnios() {
+        return anios.values();
     }
 
     public void addIngresante(EstudianteReporteDTO estudianteReporteDTO, Integer anio){

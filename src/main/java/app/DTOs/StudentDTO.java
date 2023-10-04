@@ -1,8 +1,6 @@
 package app.DTOs;
 
-import app.percistence.entities.Career;
-import app.percistence.entities.Student;
-import springfox.documentation.swagger2.mappers.ModelMapperImpl;
+import app.model.Student;
 
 import java.util.ArrayList;
 import java.util.List;

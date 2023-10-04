@@ -1,5 +1,5 @@
 package app;
-import app.migration.ReaderCSV;
+import app.utils.LoadData;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Practico3ArquitecturaApplication {
 
 	@Autowired
-	private ReaderCSV loadDates;
+	private LoadData loadDates;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Practico3ArquitecturaApplication.class, args);

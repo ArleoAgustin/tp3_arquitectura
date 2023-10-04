@@ -1,7 +1,7 @@
 package app.controller;
 
 
-import app.percistence.entities.Student;
+import app.model.Student;
 import app.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

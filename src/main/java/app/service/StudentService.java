@@ -1,7 +1,7 @@
 package app.service;
 
 import app.DTOs.StudentDTO;
-import app.percistence.entities.Student;
+import app.model.Student;
 import app.repository.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;

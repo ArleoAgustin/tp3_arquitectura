@@ -2,9 +2,9 @@ package app.service;
 
 
 import app.DTOs.*;
-import app.percistence.entities.Career;
-import app.percistence.entities.RelationCareerStudent;
-import app.percistence.entities.Student;
+import app.model.Career;
+import app.model.RelationCareerStudent;
+import app.model.Student;
 import app.repository.CareerRepository;
 import app.repository.RelationCareerStudentRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,7 +12,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @org.springframework.stereotype.Service("careerService")
@@ -111,16 +110,20 @@ public class CareerService implements Service<Career> {
     public Optional findWithIscriptosOrderByCant() throws Exception {
         try {
             List<CareerDTO> careerDTOS = this.converToCareerDTO(careerRepository.getWithIscriptosOrderByCant());
-            return Optional.ofNullable(careerDTOS);
+            Optional<List<CareerDTO>> result = Optional.ofNullable(careerDTOS);
+            if(result.isPresent()){
+                return result;
+            }else {
+                throw new Exception("No se encontraron carreras con alumnos matriculados");
+            }
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
 
-/*
 //////reporte dto
 
-    public List getReport(){
+    public Optional<ReporteDeCarrerasDTO> getReport(){
 
         List<Object[]> result = careerRepository.getReport();
         List<ObjectRelationDTO> data = new ArrayList<>();
@@ -138,14 +141,9 @@ public class CareerService implements Service<Career> {
                 careers.get(careerName).addEgresado(new EstudianteReporteDTO(objectRelationDTO.getEstudiante().getDni(), objectRelationDTO.getEstudiante().getNombre(), objectRelationDTO.getEstudiante().getApellido()), objectRelationDTO.getRelacionCarreraEstudiante().getFechaDeEgreso().getYear());
             }
         }
-        return new ArrayList<>(careers.values());
+        List<CarreraReporteDTO> carrers = new ArrayList<>(careers.values());
+        return Optional.of(new ReporteDeCarrerasDTO(carrers));
     }
-
-
-
-
-*/
-
 
     private List<CareerDTO> converToCareerDTO(List<Career> careers){
 

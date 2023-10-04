@@ -4,6 +4,8 @@ endpoints para carrera:
 
     GET -> localHost:8080/careers/OrderByCantStudentRegistered      (trae todas las carreras ordenadas por canntidad de inscriptos)
 
+    GET -> localHost:8080/careers/getReport                         (trae un reporte de las carreras ordenado, con los inscriptos y egresados de cada anio ordenados de manera cronologica)
+
     POST -> localHost:8080/careers/"idCarrera"/"idEstudiante"       (matricula un estudiante en la carrera)
 
     POST -> localHost:8080/careers                                  (agrega una carrera)

@@ -1,8 +1,8 @@
 package app.controller;
 
 
-import app.percistence.entities.Career;
-import app.percistence.entities.Student;
+import app.model.Career;
+import app.model.Student;
 import app.service.CareerService;
 import app.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,6 @@ public class CareerControllerJPA {
         }
     }
 
-/*
     @GetMapping("/getReport")
     public ResponseEntity<?> getReport(){
         try{
@@ -47,14 +46,13 @@ public class CareerControllerJPA {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
         }
     }
-*/
 
     @GetMapping("/OrderByCantStudentRegistered")
     public ResponseEntity<?> getWithIscriptosOrderByCant(){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(careerService.findWithIscriptosOrderByCant());
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"no se encontraron carreras con alumnos matriculados.\"}");
         }
     }
 
