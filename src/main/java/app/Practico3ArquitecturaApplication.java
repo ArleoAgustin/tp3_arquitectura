@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import java.io.IOException;
 
 @SpringBootApplication
-@EntityScan("app.percistence.entities")
+@EntityScan("app.model")
 public class Practico3ArquitecturaApplication {
 
 	@Autowired
