@@ -4,6 +4,7 @@ import app.percistence.entities.Career;
 import app.percistence.entities.RelationCareerStudent;
 import app.percistence.entities.Student;
 import app.repository.CareerRepository;
+import app.repository.RelationCareerStudentRepository;
 import app.repository.StudentRepository;
 import app.service.CareerService;
 import app.service.StudentService;
@@ -26,16 +27,24 @@ public class ReaderCSV {
     @Autowired
     private final CareerRepository careerRepository;
     @Autowired
+    private final RelationCareerStudentRepository relationCareerStudentRepository;
+    @Autowired
     private final CareerService careerService ;
     @Autowired
     private final StudentService studentService;
 
     @Autowired
-    public ReaderCSV(StudentRepository studentRepository, CareerRepository careerRepository, CareerService careerService, StudentService studentService){
+    public ReaderCSV(StudentRepository studentRepository,
+                     CareerRepository careerRepository,
+                     CareerService careerService,
+                     StudentService studentService,
+                     RelationCareerStudentRepository relationCareerStudentRepository)
+    {
         this.studentRepository = studentRepository;
         this.careerRepository = careerRepository;
         this.careerService = careerService;
         this.studentService = studentService;
+        this.relationCareerStudentRepository = relationCareerStudentRepository;
     }
 
     public void loadEstudiantes() throws IOException {
@@ -61,12 +70,16 @@ public class ReaderCSV {
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileEstudianteCarrera));
 
         for(CSVRecord row: file) {
-            Career c = careerService.findBy(Long.parseLong(row.get("id_carrera")));
-            Student e = studentService.findBy(Long.parseLong(row.get("id_estudiante")));
-            LocalDateTime inscription = LocalDateTime.of(Integer.parseInt(row.get("inscripcion")), 1, 1, 1, 1);
-            LocalDateTime graduation = LocalDateTime.of(Integer.parseInt(row.get("graduacion")), 1, 1, 1, 1);
-            RelationCareerStudent relation = new RelationCareerStudent(e, c, inscription, graduation);
-            careerService.matricularEstudianteEnCarrera(relation);
+            if(relationCareerStudentRepository.findById(Long.parseLong(row.get("id"))).isPresent()) {
+                break;
+            }else {
+                Career c = careerService.findBy(Long.parseLong(row.get("id_carrera")));
+                Student e = studentService.findBy(Long.parseLong(row.get("id_estudiante")));
+                LocalDateTime inscription = LocalDateTime.of(Integer.parseInt(row.get("inscripcion")), 1, 1, 1, 1);
+                LocalDateTime graduation = LocalDateTime.of(Integer.parseInt(row.get("graduacion")), 1, 1, 1, 1);
+                RelationCareerStudent relation = new RelationCareerStudent(e, c, inscription, graduation);
+                careerService.matricularEstudianteEnCarrera(relation);
+            }
         }
     }
 }
