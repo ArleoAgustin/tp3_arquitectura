@@ -35,9 +35,8 @@ public class CareerService implements Service<Career> {
             throw new IllegalArgumentException("Carrera y estudiante no pueden ser nulos.");
         }
 
-        RelationCareerStudent relacion = new RelationCareerStudent(carrera, estudiante);
-        relacion.setFechaDeInscripcion(LocalDateTime.now());
-        relationRepository.save(relacion);
+        RelationCareerStudent relation = new RelationCareerStudent(carrera, estudiante);
+        relationRepository.save(relation);
         return true;
     }
 

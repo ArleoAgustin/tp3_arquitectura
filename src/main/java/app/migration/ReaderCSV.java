@@ -24,15 +24,20 @@ public class ReaderCSV {
     private final StudentRepository studentRepository;
     @Autowired
     private final CareerRepository careerRepository;
+    @Autowired
+    private final CareerService careerService ;
+    @Autowired
+    private final StudentService studentService;
 
     @Autowired
-    public ReaderCSV(StudentRepository studentRepository, CareerRepository careerRepository){
+    public ReaderCSV(StudentRepository studentRepository, CareerRepository careerRepository, CareerService careerService, StudentService studentService){
         this.studentRepository = studentRepository;
         this.careerRepository = careerRepository;
+        this.careerService = careerService;
+        this.studentService = studentService;
     }
 
     public void loadEstudiantes() throws IOException {
-
         String fileEstudiantes = "src/main/java/app/migration/CSVs/estudiantes.csv";
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileEstudiantes));
 
@@ -51,19 +56,12 @@ public class ReaderCSV {
     }
 
     public void loadRelation() throws IOException {
-
         String fileEstudianteCarrera = "src/main/java/app/migration/CSVs/estudianteCarrera.csv";
-
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileEstudianteCarrera));
 
-        CareerService careerService = new CareerService();
-        StudentService studentService = new StudentService();
-
         for(CSVRecord row: file) {
-
             Career c = careerService.findBy(Long.parseLong(row.get("id_carrera")));
             Student e = studentService.findBy(Long.parseLong(row.get("id_estudiante")));
-
             careerService.matricularEstudianteEnCarrera(c,e);
         }
     }
