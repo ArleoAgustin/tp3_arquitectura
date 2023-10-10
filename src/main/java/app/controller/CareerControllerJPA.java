@@ -24,17 +24,7 @@ public class CareerControllerJPA {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(careerService.findAll());
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
-        }
-    }
-
-
-    @GetMapping("{id}")
-    public ResponseEntity<?> getAll(@PathVariable Long id){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(careerService.findBy(id));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error al obtener todas las carreras");
         }
     }
 
@@ -43,7 +33,7 @@ public class CareerControllerJPA {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(careerService.getReport());
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error al intentar recuperar el reporte");
         }
     }
 
@@ -52,7 +42,7 @@ public class CareerControllerJPA {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(careerService.findWithIscriptosOrderByCant());
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"no se encontraron carreras con alumnos matriculados.\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error al obtener todas las carreras por cantidad de inscriptos");
         }
     }
 
@@ -65,7 +55,7 @@ public class CareerControllerJPA {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(careerService.matricularEstudianteEnCarrera(career, student));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al matricular el estudiante con dni "+studentId + " con la carrera de id "+ careerId);
         }
     }
 
@@ -76,7 +66,7 @@ public class CareerControllerJPA {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(careerService.save(entity));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al intentar registrar una nueva carrera");
         }
     }
 
@@ -85,16 +75,16 @@ public class CareerControllerJPA {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(careerService.update(id,entity));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo editar, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al intentar actualizar la carrera de id "+ id );
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         try{
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(careerService.delete(id));
+            return ResponseEntity.status(HttpStatus.OK).body(careerService.delete(id));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al intentar eliminar la carrera con id " + id);
         }
     }
 

@@ -52,7 +52,12 @@ public class LoadData {
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileEstudiantes));
 
         for(CSVRecord row: file) {
-            studentRepository.save(new Student(Integer.parseInt(row.get("DNI")), row.get("nombre"), row.get("apellido"), Integer.parseInt(row.get("edad")), row.get("genero"), row.get("ciudad"), Integer.parseInt(row.get("LU"))));
+            if(studentRepository.findById(Long.parseLong(row.get("DNI"))).isPresent()) {
+                break;
+            }
+            else {
+                studentRepository.save(new Student(Integer.parseInt(row.get("DNI")), row.get("nombre"), row.get("apellido"), Integer.parseInt(row.get("edad")), row.get("genero"), row.get("ciudad"), Integer.parseInt(row.get("LU"))));
+            }
         }
     }
 
@@ -61,7 +66,11 @@ public class LoadData {
         CSVParser file = CSVFormat.DEFAULT.withHeader().parse(new FileReader(fileCarrera));
 
         for(CSVRecord row: file) {
-            careerRepository.save(new Career(row.get("carrera"), Long.parseLong(row.get("id_carrera"))));
+            if(careerRepository.findById(Long.parseLong(row.get("id_carrera"))).isPresent()) {
+                break;
+            }else {
+                careerRepository.save(new Career(row.get("carrera"), Long.parseLong(row.get("id_carrera"))));
+            }
         }
     }
 

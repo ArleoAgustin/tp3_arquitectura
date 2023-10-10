@@ -2,10 +2,8 @@ package app.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class Student {
     @Column(name = "nro_libreta")
     private int nroLibreta;
 
-    @OneToMany(mappedBy = "estudiante")
+    @OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RelationCareerStudent> carrerasInscriptas;
 
     public Student() {}
@@ -50,6 +48,9 @@ public class Student {
         this.carrerasInscriptas = new ArrayList<>();
     }
 
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
 
     public int getDni() {
         return dni;

@@ -1,5 +1,6 @@
 package app.repository;
 
+import app.DTOs.StudentDTO;
 import app.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +16,7 @@ public interface StudentRepository extends JpaRepository<Student, Long>{
     List<Student> findAllByOrderByApellidoAsc();
 
     @Query("SELECT e FROM Student e WHERE e.nroLibreta = :nroLibreta")
-    Student findBynroLibreta(@Param("nroLibreta") int nroLibreta);
+    StudentDTO findBynroLibreta(@Param("nroLibreta") int nroLibreta);
 
     @Query("SELECT e FROM Student  e WHERE e.genero = :genero")
     List<Student> findByGenre(@Param("genero") String genero);

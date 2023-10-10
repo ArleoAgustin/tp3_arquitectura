@@ -1,6 +1,7 @@
 package app.service;
 
 import app.DTOs.StudentDTO;
+import app.model.Career;
 import app.model.Student;
 import app.repository.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,8 +18,6 @@ public class StudentService implements Service<Student> {
     @Autowired
     private StudentRepository studentRepository;
 
-
-    public StudentService() {}
 
     public Student findBy(Long dni) {
 
@@ -60,6 +59,9 @@ public class StudentService implements Service<Student> {
                 existingStudent.setNombre(student.getNombre());
                 existingStudent.setApellido(student.getApellido());
                 existingStudent.setEdad(student.getEdad());
+                existingStudent.setCiudad(student.getCiudad());
+                existingStudent.setGenero(student.getGenero());
+                existingStudent.setNroLibreta(student.getNroLibreta());
                 studentRepository.save(existingStudent);
                 return true;
             } else
@@ -84,8 +86,8 @@ public class StudentService implements Service<Student> {
     }
 
     @Transactional
-    public Student findByLibreta(int nroLibreta) throws Exception {
-        Student student = studentRepository.findBynroLibreta(nroLibreta);
+    public StudentDTO findByLibreta(int nroLibreta) throws Exception {
+        StudentDTO student = studentRepository.findBynroLibreta(nroLibreta);
         if (student == null) {
             throw new Exception("No se encontró ningún estudiante con número de libreta: " + nroLibreta);
         }
@@ -93,16 +95,17 @@ public class StudentService implements Service<Student> {
     }
 
     @Transactional
-    public List<Student> findByGenre(String genero) throws Exception {
+    public Optional findByGenre(String genero) throws Exception {
         try {
-            return studentRepository.findByGenre(genero);
+            List<StudentDTO> studentDTOs = this.converToStudentDTO(studentRepository.findByGenre(genero));
+            return Optional.ofNullable(studentDTOs);
         } catch (DataAccessException e) {
             throw new Exception("Error al buscar estudiantes por género: " + e.getMessage(), e);
         }
     }
 
 
-    public Optional<List<StudentDTO>> getAllBy(String career, String city) throws Exception {
+    public Optional getAllBy(String career, String city) throws Exception {
         try {
             List<StudentDTO> studentsDTOs = this.converToStudentDTO(studentRepository.getAllBy(career, city));
             return Optional.ofNullable(studentsDTOs);

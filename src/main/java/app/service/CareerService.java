@@ -27,8 +27,6 @@ public class CareerService implements Service<Career> {
         this.relationRepository = relationRepository;
     }
 
-    public CareerService() {}
-
     public boolean matricularEstudianteEnCarrera(Career carrera, Student estudiante) {
         if (carrera == null || estudiante == null) {
             throw new IllegalArgumentException("Carrera y estudiante no pueden ser nulos.");
@@ -94,15 +92,17 @@ public class CareerService implements Service<Career> {
     @Override
     @Transactional
     public boolean delete(Long id) throws Exception {
-        try {
-            if (careerRepository.existsById(id)) {
+        try{
+            if(careerRepository.existsById(id)){
+                //eliminar relacion tambien de la tabla relacion
+
                 careerRepository.deleteById(id);
                 return true;
-            } else {
-                throw new ChangeSetPersister.NotFoundException();
+            }else{
+                throw new Exception();
             }
-        } catch (Exception e) {
-            throw new Exception("Error al eliminar la carrera: " + e.getMessage());
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
         }
     }
 

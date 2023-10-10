@@ -21,16 +21,17 @@ public class StudentControllerJPA {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(studentService.findAll());
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error al obtener todos los estudiantes.");
         }
     }
+
 
     @GetMapping("/byGenre/{genero}")
     public ResponseEntity<?> getAllByGenre(@PathVariable String genero){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(studentService.findByGenre(genero));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error al obtener los estudiantes con el genero "+ genero);
         }
     }
 
@@ -39,7 +40,7 @@ public class StudentControllerJPA {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(studentService.getAllBy(career,city));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error al obtener estudiantes de " + city + " en la carrera " + career);
         }
     }
 
@@ -48,8 +49,7 @@ public class StudentControllerJPA {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(studentService.findByLibreta(nroLibreta));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No se encuentra el objeto buscado" +
-                    ".\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error al obtener estudiante con numero de libreta "+ nroLibreta);
         }
     }
 
@@ -59,7 +59,7 @@ public class StudentControllerJPA {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(studentService.save(entity));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo ingresar, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al registrar un nuevo estudiante");
         }
     }
 
@@ -68,16 +68,16 @@ public class StudentControllerJPA {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(studentService.update(dni,entity));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo editar, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar estudiante con numero de dni "+ dni);
         }
     }
 
     @DeleteMapping("/{dni}")
     public ResponseEntity<?> delete(@PathVariable Long dni){
         try{
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(studentService.delete(dni));
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.delete(dni));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. no se pudo eliminar intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al intentar eliminar el estudiante con dni "+dni);
         }
     }
 

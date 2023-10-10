@@ -2,10 +2,8 @@ package app.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -14,7 +12,7 @@ public class Career {
 
     @Id
     private Long idCarrera;
-    @OneToMany(mappedBy = "carrera")
+    @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RelationCareerStudent> inscriptos;
 
     @Column(nullable = false, unique=true)

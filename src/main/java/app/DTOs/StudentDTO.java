@@ -14,6 +14,7 @@ public class StudentDTO {
     private int edad;
     private String genero;
     private String ciudad;
+    private int nroLibreta;
     private List<String> carrerasInscriptas;
 
     public List<String> getCarrerasInscriptas() {
@@ -27,10 +28,19 @@ public class StudentDTO {
         this.edad = student.getEdad();
         this.genero = student.getGenero();
         this.ciudad = student.getCiudad();
+        this.nroLibreta = student.getNroLibreta();
         this.carrerasInscriptas = new ArrayList<>( student.getCarrerasInscriptas().stream()
                 .map(relacion -> relacion.getCarrera().getNombre())
                 .collect(Collectors.toList()));
 
+    }
+
+    public int getNroLibreta() {
+        return nroLibreta;
+    }
+
+    public void setNroLibreta(int nroLibreta) {
+        this.nroLibreta = nroLibreta;
     }
 
     public Long getDni(){
